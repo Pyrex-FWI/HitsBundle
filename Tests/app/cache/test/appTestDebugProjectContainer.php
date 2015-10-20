@@ -411,7 +411,14 @@ class appTestDebugProjectContainer extends Container
      */
     protected function getRadioManagerService()
     {
-        return $this->services['radio_manager'] = new \RadioHitsBundle\Radio\RadioManager();
+        $this->services['radio_manager'] = $instance = new \RadioHitsBundle\Radio\RadioManager();
+
+        $instance->addRadio(new \RadioHitsBundle\Radio\Radio('Nrj Antilles', array(0 => new \RadioHitsBundle\HitsPage\HitsPage('http://www.nrjantilles.com/hit', new \RadioHitsBundle\Extractor\Extractor()))));
+        $instance->addRadio(new \RadioHitsBundle\Radio\Radio('Nrj'));
+        $instance->addRadio(new \RadioHitsBundle\Radio\Radio('Trace Fm GP'));
+        $instance->addRadio(new \RadioHitsBundle\Radio\Radio('Trace Fm MQ'));
+
+        return $instance;
     }
 
     /**
@@ -936,7 +943,6 @@ class appTestDebugProjectContainer extends Container
         $instance->setConstraintValidatorFactory(new \Symfony\Bundle\FrameworkBundle\Validator\ConstraintValidatorFactory($this, array('validator.expression' => 'validator.expression', 'Symfony\\Component\\Validator\\Constraints\\EmailValidator' => 'validator.email')));
         $instance->setTranslator($this->get('translator'));
         $instance->setTranslationDomain('validators');
-        $instance->addXmlMappings(array(0 => ($this->targetDirs[4].'/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/config/validation.xml')));
         $instance->enableAnnotationMapping($this->get('annotation_reader'));
         $instance->addMethodMapping('loadValidatorMetadata');
         $instance->addObjectInitializers(array());

@@ -14,6 +14,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     /** @var  \RadioHitsBundle\Radio\RadioManager */
     private $radioManager;
+
+    /** @var  \RadioHitsBundle\Radio\RadioInterface */
+    private $lastUsedRadio;
     /**
      * Initializes context.
      *
@@ -27,16 +30,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given /^Get Radio manager$/
+     * @Given /^Retrieve Radio manager$/
      */
     public function getRadioManager()
     {
         $this->radioManager = $this->getContainer()->get('radio_manager');
+        if (get_class($this->radioManager) !== 'RadioHitsBundle\Radio\RadioManager') {
+            throw new \Exception('This manager class is wrong');
+        }
     }
 
-    /** @Given /^Radio "([^"]*)" must be available$/ */
-    public function iHaveAFileNamed($file)
+    /** @Then /^Radio "([^"]*)" must be available$/ */
+    public function getRadio($name)
     {
-        touch($file);
+        if (! $this->radioManager->getRadio($name)) {
+            throw new \Exception(sprintf('%s not found',$name));
+        }
+        $this->lastUsedRadio = $this->radioManager->getRadio($name);
     }
 }

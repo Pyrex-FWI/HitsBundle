@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+        >
+    <services>
+        <service id="radio_manager" class="RadioHitsBundle\Radio\RadioManager">
+        </service>
+
+
+        <service id="extractor_nrj_antilles" class="RadioHitsBundle\Extractor\Extractor" public="false" ></service>
+
+        <service id="page_nrj_antilles" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://www.nrjantilles.com/hit</argument>
+            <argument type="service" id="extractor_nrj_antilles"/>
+        </service>
+
+        <service id="nrj_antilles_radio" class="RadioHitsBundle\Radio\Radio" public="false" >
+            <argument>Nrj Antilles</argument>
+            <argument type="collection">
+                <argument type="service" id="page_nrj_antilles" />
+            </argument>
+            <tag name="rhb.radio"></tag>
+        </service>
+
+        <service id="nrj_radio" class="RadioHitsBundle\Radio\Radio" public="false" >
+            <argument>Nrj</argument>
+            <tag name="rhb.radio"></tag>
+        </service>
+
+        <service id="tracefm_gp_radio" class="RadioHitsBundle\Radio\Radio" public="false" >
+            <argument>Trace Fm GP</argument>
+            <tag name="rhb.radio"></tag>
+        </service>
+
+        <service id="tracefm_mq_radio" class="RadioHitsBundle\Radio\Radio" public="false">
+            <argument>Trace Fm MQ</argument>
+            <tag name="rhb.radio"></tag>
+        </service>
+
+    </services>
+</container>

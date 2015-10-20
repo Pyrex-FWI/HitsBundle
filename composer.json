@@ -12,9 +12,19 @@
     "psr-4": { "RadioHitsBundle\\": "" }
   },
   "require": {
-    "symfony/http-kernel": "~2.7"
+    "symfony/http-kernel": "~2.7",
+    "doctrine/common": "^2.5",
+    "guzzlehttp/guzzle": "^6.0"
   },
   "require-dev": {
-      "symfony/framework-bundle": "~2.7"
+    "symfony/framework-bundle": "~2.7",
+    "behat/behat": "^3.0",
+    "behat/symfony2-extension": "^2.1",
+    "behat/mink": "^1.7",
+    "behat/mink-extension": "^2.1",
+    "behat/mink-browserkit-driver": "^1.3"
+  },
+  "config": {
+    "bin-dir": "Tests/bin"
   }
 }

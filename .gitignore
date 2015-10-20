@@ -28,6 +28,7 @@
 /web/uploads/
 
 # PHPUnit
+/composer.lock
 /app/phpunit.xml
 /phpunit.xml
 
