@@ -1,8 +1,11 @@
 Feature: Check container
+  Background:
+    Given Retrieve Radio manager
 
-Scenario: Check if all declared radio are available from manager
-  Given Retrieve Radio manager
-  Then Radio "Nrj Antilles" must be available
-  Then Radio "Nrj" must be available
-  Then Radio "Trace Fm GP" must be available
-  Then Radio "Trace Fm MQ" must be available
+Scenario Outline: Check if Radio are available and get Try get hits from  HitPages
+  When I read all hit pages from "<radio>", i must found "<nbitems>"
+  Examples:
+    | radio          | nbitems|
+    | Nrj Antilles   | 25     |
+    | Trace Fm GP    | 70     |
+    | Mfm            | 50     |

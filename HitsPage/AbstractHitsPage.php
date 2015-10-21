@@ -14,6 +14,7 @@ abstract class AbstractHitsPage implements HitsPageInterface
 	{
 		$this->url = $url;
 		$this->extractor = $extractor;
+		$this->extractor->setUrl($url);
 	}
 
 	/**
@@ -25,7 +26,7 @@ abstract class AbstractHitsPage implements HitsPageInterface
 	}
 
 	/**
-	 * @return mixed
+	 * @return ExtractorInterface
 	 */
 	public function getExtractor()
 	{

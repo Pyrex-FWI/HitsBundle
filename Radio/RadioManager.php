@@ -41,4 +41,10 @@ class RadioManager
 			}
 		}
 	}
+
+	public function getItems($radioName)
+	{
+		$radio = $this->getRadio($radioName);
+		$radio->extractHits();
+	}
 }

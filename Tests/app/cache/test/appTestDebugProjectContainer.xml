@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <parameters>
-    <parameter key="kernel.root_dir">/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app</parameter>
+    <parameter key="kernel.root_dir">/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app</parameter>
     <parameter key="kernel.environment">test</parameter>
     <parameter key="kernel.debug">true</parameter>
     <parameter key="kernel.name">app</parameter>
-    <parameter key="kernel.cache_dir">/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app/cache/test</parameter>
-    <parameter key="kernel.logs_dir">/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app/logs</parameter>
+    <parameter key="kernel.cache_dir">/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app/cache/test</parameter>
+    <parameter key="kernel.logs_dir">/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app/logs</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
       <parameter key="RadioHitsBundle">RadioHitsBundle\RadioHitsBundle</parameter>
@@ -85,7 +85,7 @@
     <parameter key="debug.stopwatch.class">Symfony\Component\Stopwatch\Stopwatch</parameter>
     <parameter key="debug.error_handler.throw_at">-1</parameter>
     <parameter key="debug.event_dispatcher.class">Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher</parameter>
-    <parameter key="debug.container.dump">/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app/cache/test/appTestDebugProjectContainer.xml</parameter>
+    <parameter key="debug.container.dump">/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app/cache/test/appTestDebugProjectContainer.xml</parameter>
     <parameter key="debug.controller_resolver.class">Symfony\Component\HttpKernel\Controller\TraceableControllerResolver</parameter>
     <parameter key="console.command.ids" type="collection"/>
   </parameters>
@@ -135,7 +135,7 @@
     <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem"/>
     <service id="file_locator" class="Symfony\Component\HttpKernel\Config\FileLocator">
       <argument type="service" id="kernel"/>
-      <argument>/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app/Resources</argument>
+      <argument>/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app/Resources</argument>
     </service>
     <service id="uri_signer" class="Symfony\Component\HttpKernel\UriSigner">
       <argument>Three can keep a secret, if two of them are dead.</argument>
@@ -231,7 +231,7 @@
         </argument>
       </argument>
       <argument type="collection">
-        <argument key="cache_dir">/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app/cache/test/translations</argument>
+        <argument key="cache_dir">/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app/cache/test/translations</argument>
         <argument key="debug">true</argument>
       </argument>
       <argument type="collection"/>
@@ -410,7 +410,7 @@
     </service>
     <service id="security.secure_random" class="Symfony\Component\Security\Core\Util\SecureRandom">
       <tag name="monolog.logger" channel="security"/>
-      <argument>/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app/cache/test/secure_random.seed</argument>
+      <argument>/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app/cache/test/secure_random.seed</argument>
       <argument>null</argument>
     </service>
     <service id="assets.packages" class="Symfony\Component\Asset\Packages">
@@ -448,6 +448,11 @@
       </call>
       <call method="setTranslationDomain">
         <argument>validators</argument>
+      </call>
+      <call method="addXmlMappings">
+        <argument type="collection">
+          <argument>/Users/Yemistikris/Documents/RadioHitsBundle/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/config/validation.xml</argument>
+        </argument>
       </call>
       <call method="enableAnnotationMapping">
         <argument type="service" id="annotation_reader"/>
@@ -527,53 +532,142 @@
     </service>
     <service id="radio_manager" class="RadioHitsBundle\Radio\RadioManager">
       <call method="addRadio">
+        <argument type="service" id="rhb.tracefm_gp"/>
+      </call>
+      <call method="addRadio">
+        <argument type="service" id="rhb.nrj_antilles_radio"/>
+      </call>
+      <call method="addRadio">
+        <argument type="service" id="rhb.mfm_radio"/>
+      </call>
+    </service>
+    <service id="rhb.tracefm_gp" class="RadioHitsBundle\Radio\Radio">
+      <tag name="rhb.radio"/>
+      <argument>Trace Fm GP</argument>
+      <argument type="collection">
         <argument type="service">
-          <service class="RadioHitsBundle\Radio\Radio" public="false">
-            <tag name="rhb.radio"/>
-            <argument>Nrj Antilles</argument>
-            <argument type="collection">
-              <argument type="service">
-                <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
-                  <argument>http://www.nrjantilles.com/hit</argument>
-                  <argument type="service">
-                    <service class="RadioHitsBundle\Extractor\Extractor" public="false"/>
-                  </argument>
-                </service>
-              </argument>
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-Le-HIT-TRACE-FM-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
             </argument>
           </service>
         </argument>
-      </call>
-      <call method="addRadio">
         <argument type="service">
-          <service class="RadioHitsBundle\Radio\Radio" public="false">
-            <tag name="rhb.radio"/>
-            <argument>Nrj</argument>
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-TRACE-FM-11-a-20-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
           </service>
         </argument>
-      </call>
-      <call method="addRadio">
         <argument type="service">
-          <service class="RadioHitsBundle\Radio\Radio" public="false">
-            <tag name="rhb.radio"/>
-            <argument>Trace Fm GP</argument>
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-TRACE-FM-21-a-30-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
           </service>
         </argument>
-      </call>
-      <call method="addRadio">
         <argument type="service">
-          <service class="RadioHitsBundle\Radio\Radio" public="false">
-            <tag name="rhb.radio"/>
-            <argument>Trace Fm MQ</argument>
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-US-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
           </service>
         </argument>
-      </call>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-US-11-a-20-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-JAMAICAN-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-JAMAICAIN-11-a-20-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+      </argument>
+    </service>
+    <service id="rhb.nrj_antilles_radio" class="RadioHitsBundle\Radio\Radio">
+      <tag name="rhb.radio"/>
+      <argument>Nrj Antilles</argument>
+      <argument type="collection">
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://nrjantilles.com/-Le-Hit-NRJ-Antilles-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\NrjAntillesHitsExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+      </argument>
+    </service>
+    <service id="rhb.mfm_radio" class="RadioHitsBundle\Radio\Radio">
+      <tag name="rhb.radio"/>
+      <argument>Mfm</argument>
+      <argument type="collection">
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=2</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=3</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=4</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=5</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+      </argument>
     </service>
     <service id="annotation_reader" class="Doctrine\Common\Annotations\FileCacheReader">
       <argument type="service">
         <service class="Doctrine\Common\Annotations\AnnotationReader" public="false"/>
       </argument>
-      <argument>/home/chpyr/PhpstormProjects/RadioHitsBundle/Tests/app/cache/test/annotations</argument>
+      <argument>/Users/Yemistikris/Documents/RadioHitsBundle/Tests/app/cache/test/annotations</argument>
       <argument>true</argument>
     </service>
     <service id="event_dispatcher" alias="debug.event_dispatcher"/>

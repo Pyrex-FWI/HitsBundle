@@ -55,4 +55,16 @@ abstract class AbstractRadio implements RadioInterface
 		return $this;
 	}
 
+	public function extractHits()
+	{
+		$items = [];
+		foreach ($this->hitsPages as $hitPage) {
+			$items = array_merge(
+					$items,
+					$hitPage->getExtractor()->extract()
+			);
+		}
+		return $items;
+	}
+
 }

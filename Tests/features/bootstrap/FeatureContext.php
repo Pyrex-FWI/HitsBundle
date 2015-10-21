@@ -17,6 +17,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     /** @var  \RadioHitsBundle\Radio\RadioInterface */
     private $lastUsedRadio;
+    /** @var  \RadioHitsBundle\Item[] */
+    private $lastExtractedItems;
     /**
      * Initializes context.
      *
@@ -48,4 +50,33 @@ class FeatureContext implements Context, SnippetAcceptingContext
         }
         $this->lastUsedRadio = $this->radioManager->getRadio($name);
     }
+    /** @Then /^Fetch hits$/ */
+    public function getHitsItems()
+    {
+        $this->lastExtractedItems = null;
+        $this->lastExtractedItems = $this->lastUsedRadio->extractHits();
+    }
+
+    /**
+     * @When I read all hit pages from :radio, i must found :nbItem
+     */
+    public function iReadAllHitPagesFromIMustFound($radio, $nbItem)
+    {
+        $this->getRadio($radio);
+        $this->getHitsItems();
+        $count = count($this->lastExtractedItems);
+        if ( $count != $nbItem) {
+            throw new \Exception(sprintf('%s item found instead %s expected', $count, $nbItem));
+        }
+    }
+
+    /**
+     * @When i print hits result
+     */
+    public function iPrintHitsResult()
+    {
+        var_dump($this->lastExtractedItems);
+    }
+
+
 }
