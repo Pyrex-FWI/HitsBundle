@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+        >
+    <services>
+        <service id="radio_manager" class="RadioHitsBundle\Radio\RadioManager">
+        </service>
+
+        <service id="extractor_tracefm" class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false" ></service>
+        <service id="page_tracefm_p1" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://gp.trace.fm/-Le-HIT-TRACE-FM-.html</argument>
+            <argument type="service" id="extractor_tracefm"/>
+        </service>
+        <service id="page_tracefm_p2" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://gp.trace.fm/-HIT-TRACE-FM-11-a-20-.html</argument>
+            <argument type="service" id="extractor_tracefm"/>
+        </service>
+        <service id="page_tracefm_p3" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://gp.trace.fm/-HIT-TRACE-FM-21-a-30-.html</argument>
+            <argument type="service" id="extractor_tracefm"/>
+        </service>
+        <service id="page_tracefm_us_p1" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://gp.trace.fm/-HIT-US-.html</argument>
+            <argument type="service" id="extractor_tracefm"/>
+        </service>
+        <service id="page_tracefm_us_p2" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://gp.trace.fm/-HIT-US-11-a-20-.html</argument>
+            <argument type="service" id="extractor_tracefm"/>
+        </service>
+        <service id="page_tracefm_jam_p1" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://gp.trace.fm/-HIT-JAMAICAN-.html</argument>
+            <argument type="service" id="extractor_tracefm"/>
+        </service>
+        <service id="page_tracefm_jam_p2" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://gp.trace.fm/-HIT-JAMAICAIN-11-a-20-.html</argument>
+            <argument type="service" id="extractor_tracefm"/>
+        </service>
+        <service id="rhb.tracefm_gp" class="RadioHitsBundle\Radio\Radio" public="true" >
+            <argument>Trace Fm GP</argument>
+            <argument type="collection">
+                <argument type="service" id="page_tracefm_p1" />
+                <argument type="service" id="page_tracefm_p2" />
+                <argument type="service" id="page_tracefm_p3" />
+                <argument type="service" id="page_tracefm_us_p1" />
+                <argument type="service" id="page_tracefm_us_p2" />
+                <argument type="service" id="page_tracefm_jam_p1" />
+                <argument type="service" id="page_tracefm_jam_p2" />
+            </argument>
+            <tag name="rhb.radio"></tag>
+        </service>
+
+
+        <service id="extractor_nrj_antilles" class="RadioHitsBundle\Extractor\NrjAntillesHitsExtractor" public="false" ></service>
+
+        <service id="page_nrj_antilles" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument>http://nrjantilles.com/-Le-Hit-NRJ-Antilles-.html</argument>
+            <argument type="service" id="extractor_nrj_antilles"/>
+        </service>
+
+        <service id="rhb.nrj_antilles_radio" class="RadioHitsBundle\Radio\Radio" public="true" >
+            <argument>Nrj Antilles</argument>
+            <argument type="collection">
+                <argument type="service" id="page_nrj_antilles" />
+            </argument>
+            <tag name="rhb.radio"></tag>
+        </service>
+
+        <service id="extractor_mfm" class="RadioHitsBundle\Extractor\MfmExtractor" public="false" ></service>
+        <service id="page_mfm_p1" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument><![CDATA[http://mfmtv.tv/?album_categories=top-radio]]></argument>
+            <argument type="service" id="extractor_mfm"/>
+        </service>
+        <service id="page_mfm_p2" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument><![CDATA[http://mfmtv.tv/?album_categories=top-radio&paged=2]]></argument>
+            <argument type="service" id="extractor_mfm"/>
+        </service>
+        <service id="page_mfm_p3" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument><![CDATA[http://mfmtv.tv/?album_categories=top-radio&paged=3]]></argument>
+            <argument type="service" id="extractor_mfm"/>
+        </service>
+        <service id="page_mfm_p4" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument><![CDATA[http://mfmtv.tv/?album_categories=top-radio&paged=4]]></argument>
+            <argument type="service" id="extractor_mfm"/>
+        </service>
+        <service id="page_mfm_p5" class="RadioHitsBundle\HitsPage\HitsPage" public="false" >
+            <argument><![CDATA[http://mfmtv.tv/?album_categories=top-radio&paged=5]]></argument>
+            <argument type="service" id="extractor_mfm"/>
+        </service>
+        <service id="rhb.mfm_radio" class="RadioHitsBundle\Radio\Radio" public="true" >
+            <argument>Mfm</argument>
+            <argument type="collection">
+                <argument type="service" id="page_mfm_p1" />
+                <argument type="service" id="page_mfm_p2" />
+                <argument type="service" id="page_mfm_p3" />
+                <argument type="service" id="page_mfm_p4" />
+                <argument type="service" id="page_mfm_p5" />
+            </argument>
+            <tag name="rhb.radio"></tag>
+        </service>
+    </services>
+</container>

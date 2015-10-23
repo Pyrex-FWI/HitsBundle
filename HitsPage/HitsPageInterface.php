@@ -1,13 +1,14 @@
 <?php
-/**
- * Date: 19/10/15
- * Time: 13:27
- */
 
 namespace RadioHitsBundle\HitsPage;
 
 
+use RadioHitsBundle\Extractor\Extractor;
+
 interface HitsPageInterface
 {
-
+	/** @return string */
+	public function getUrl();
+	/** @return \RadioHitsBundle\Extractor\ExtractorInterface */
+	public function getExtractor();
 }

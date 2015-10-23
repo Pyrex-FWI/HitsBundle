@@ -530,7 +530,139 @@
       </argument>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id="radio_manager" class="RadioHitsBundle\Radio\RadioManager"/>
+    <service id="radio_manager" class="RadioHitsBundle\Radio\RadioManager">
+      <call method="addRadio">
+        <argument type="service" id="rhb.tracefm_gp"/>
+      </call>
+      <call method="addRadio">
+        <argument type="service" id="rhb.nrj_antilles_radio"/>
+      </call>
+      <call method="addRadio">
+        <argument type="service" id="rhb.mfm_radio"/>
+      </call>
+    </service>
+    <service id="rhb.tracefm_gp" class="RadioHitsBundle\Radio\Radio">
+      <tag name="rhb.radio"/>
+      <argument>Trace Fm GP</argument>
+      <argument type="collection">
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-Le-HIT-TRACE-FM-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-TRACE-FM-11-a-20-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-TRACE-FM-21-a-30-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-US-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-US-11-a-20-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-JAMAICAN-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://gp.trace.fm/-HIT-JAMAICAIN-11-a-20-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\TraceFmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+      </argument>
+    </service>
+    <service id="rhb.nrj_antilles_radio" class="RadioHitsBundle\Radio\Radio">
+      <tag name="rhb.radio"/>
+      <argument>Nrj Antilles</argument>
+      <argument type="collection">
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://nrjantilles.com/-Le-Hit-NRJ-Antilles-.html</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\NrjAntillesHitsExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+      </argument>
+    </service>
+    <service id="rhb.mfm_radio" class="RadioHitsBundle\Radio\Radio">
+      <tag name="rhb.radio"/>
+      <argument>Mfm</argument>
+      <argument type="collection">
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=2</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=3</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=4</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="RadioHitsBundle\HitsPage\HitsPage" public="false">
+            <argument>http://mfmtv.tv/?album_categories=top-radio&amp;paged=5</argument>
+            <argument type="service">
+              <service class="RadioHitsBundle\Extractor\MfmExtractor" public="false"/>
+            </argument>
+          </service>
+        </argument>
+      </argument>
+    </service>
     <service id="annotation_reader" class="Doctrine\Common\Annotations\FileCacheReader">
       <argument type="service">
         <service class="Doctrine\Common\Annotations\AnnotationReader" public="false"/>

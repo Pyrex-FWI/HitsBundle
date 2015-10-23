@@ -60,6 +60,9 @@ class appTestDebugProjectContainer extends Container
             'request' => 'getRequestService',
             'request_stack' => 'getRequestStackService',
             'response_listener' => 'getResponseListenerService',
+            'rhb.mfm_radio' => 'getRhb_MfmRadioService',
+            'rhb.nrj_antilles_radio' => 'getRhb_NrjAntillesRadioService',
+            'rhb.tracefm_gp' => 'getRhb_TracefmGpService',
             'security.secure_random' => 'getSecurity_SecureRandomService',
             'service_container' => 'getServiceContainerService',
             'streamed_response_listener' => 'getStreamedResponseListenerService',
@@ -411,7 +414,13 @@ class appTestDebugProjectContainer extends Container
      */
     protected function getRadioManagerService()
     {
-        return $this->services['radio_manager'] = new \RadioHitsBundle\Radio\RadioManager();
+        $this->services['radio_manager'] = $instance = new \RadioHitsBundle\Radio\RadioManager();
+
+        $instance->addRadio($this->get('rhb.tracefm_gp'));
+        $instance->addRadio($this->get('rhb.nrj_antilles_radio'));
+        $instance->addRadio($this->get('rhb.mfm_radio'));
+
+        return $instance;
     }
 
     /**
@@ -456,6 +465,49 @@ class appTestDebugProjectContainer extends Container
     protected function getResponseListenerService()
     {
         return $this->services['response_listener'] = new \Symfony\Component\HttpKernel\EventListener\ResponseListener('UTF-8');
+    }
+
+    /**
+     * Gets the 'rhb.mfm_radio' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \RadioHitsBundle\Radio\Radio A RadioHitsBundle\Radio\Radio instance.
+     */
+    protected function getRhb_MfmRadioService()
+    {
+        $a = new \RadioHitsBundle\Extractor\MfmExtractor();
+
+        return $this->services['rhb.mfm_radio'] = new \RadioHitsBundle\Radio\Radio('Mfm', array(0 => new \RadioHitsBundle\HitsPage\HitsPage('http://mfmtv.tv/?album_categories=top-radio', $a), 1 => new \RadioHitsBundle\HitsPage\HitsPage('http://mfmtv.tv/?album_categories=top-radio&paged=2', $a), 2 => new \RadioHitsBundle\HitsPage\HitsPage('http://mfmtv.tv/?album_categories=top-radio&paged=3', $a), 3 => new \RadioHitsBundle\HitsPage\HitsPage('http://mfmtv.tv/?album_categories=top-radio&paged=4', $a), 4 => new \RadioHitsBundle\HitsPage\HitsPage('http://mfmtv.tv/?album_categories=top-radio&paged=5', $a)));
+    }
+
+    /**
+     * Gets the 'rhb.nrj_antilles_radio' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \RadioHitsBundle\Radio\Radio A RadioHitsBundle\Radio\Radio instance.
+     */
+    protected function getRhb_NrjAntillesRadioService()
+    {
+        return $this->services['rhb.nrj_antilles_radio'] = new \RadioHitsBundle\Radio\Radio('Nrj Antilles', array(0 => new \RadioHitsBundle\HitsPage\HitsPage('http://nrjantilles.com/-Le-Hit-NRJ-Antilles-.html', new \RadioHitsBundle\Extractor\NrjAntillesHitsExtractor())));
+    }
+
+    /**
+     * Gets the 'rhb.tracefm_gp' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \RadioHitsBundle\Radio\Radio A RadioHitsBundle\Radio\Radio instance.
+     */
+    protected function getRhb_TracefmGpService()
+    {
+        $a = new \RadioHitsBundle\Extractor\TraceFmExtractor();
+
+        return $this->services['rhb.tracefm_gp'] = new \RadioHitsBundle\Radio\Radio('Trace Fm GP', array(0 => new \RadioHitsBundle\HitsPage\HitsPage('http://gp.trace.fm/-Le-HIT-TRACE-FM-.html', $a), 1 => new \RadioHitsBundle\HitsPage\HitsPage('http://gp.trace.fm/-HIT-TRACE-FM-11-a-20-.html', $a), 2 => new \RadioHitsBundle\HitsPage\HitsPage('http://gp.trace.fm/-HIT-TRACE-FM-21-a-30-.html', $a), 3 => new \RadioHitsBundle\HitsPage\HitsPage('http://gp.trace.fm/-HIT-US-.html', $a), 4 => new \RadioHitsBundle\HitsPage\HitsPage('http://gp.trace.fm/-HIT-US-11-a-20-.html', $a), 5 => new \RadioHitsBundle\HitsPage\HitsPage('http://gp.trace.fm/-HIT-JAMAICAN-.html', $a), 6 => new \RadioHitsBundle\HitsPage\HitsPage('http://gp.trace.fm/-HIT-JAMAICAIN-11-a-20-.html', $a)));
     }
 
     /**
