@@ -19,7 +19,7 @@
   },
   "require-dev": {
     "symfony/framework-bundle": "~2.7",
-    "behat/behat": "^3.0",
+    "behat/behat": "~3.0",
     "behat/symfony2-extension": "^2.1",
     "behat/mink": "^1.7",
     "behat/mink-extension": "^2.1",

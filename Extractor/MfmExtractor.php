@@ -16,11 +16,11 @@ class MfmExtractor extends AbstractExtractor
 		$crawler = new Crawler($data);
 		$crawler = $crawler->filter('h3.stitle');
 		$nbItem = $crawler->count();
-
+		$results = [];
 		for ($i = 0; $i < $nbItem; $i++ ) {
 			preg_match('/^\d{2}\s+.\s+(?<artist>[\w\s\-\’]*\w)([»«\s\–]*)?(?<title>[\w\s\-\’]*\w)([»«\s\–]*)$/u', $crawler->eq($i)->text(), $match);
 			$line = array_map('trim', $match);
-			$results[] = (new Item())->setArtist($line['artist'])->setTitle($line['title']);
+			$results[] = (new Item())->setArtist(ucwords($line['artist'])->setTitle(ucwords($line['title']));
 		}
 
 		return $results;

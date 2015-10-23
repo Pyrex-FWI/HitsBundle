@@ -21,7 +21,7 @@ class TraceFmExtractor extends AbstractExtractor
 
 		for ($i = 0; $i < $nbItem; $i++ ) {
 			$line = array_map('trim', explode('-', mb_convert_encoding($crawler->eq($i)->text(), 'ISO-8859-1'),2));
-			$results[] = (new Item())->setArtist($line[0])->setTitle($line[1]);
+			$results[] = (new Item())->setArtist(ucwords($line[0]))->setTitle(ucwords($line[1]));
 		}
 
 		return $results;

@@ -42,9 +42,12 @@ class RadioManager
 		}
 	}
 
-	public function getItems($radioName)
+	/**
+	 *
+	 * @return Radio[]
+	 */
+	public function getRadioList()
 	{
-		$radio = $this->getRadio($radioName);
-		$radio->extractHits();
+		return $this->radios->toArray();
 	}
 }
