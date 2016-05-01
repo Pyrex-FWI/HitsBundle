@@ -1,26 +1,26 @@
 <?php
 
-namespace RadioHitsBundle\Radio;
+namespace HitsBundle\Source;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class RadioManager
+class SourceManager
 {
 
 	/** @var ArrayCollection<RadioInterface> */
 	private $radios ;
 
-	public function __construct()
+	public function __construct($eventDispatcher)
 	{
 		$this->radios = new ArrayCollection();
 	}
 
 	/**
 	 * Add Radio
-	 * @param RadioInterface $radio
+	 * @param SourceInterface $radio
 	 */
-	public function addRadio(RadioInterface $radio)
+	public function addSource(SourceInterface $radio)
 	{
 		if (!$this->radios->contains($radio)) {
 			$this->radios->add($radio);
@@ -29,14 +29,14 @@ class RadioManager
 
 	/**
 	 * Get Radio from name
-	 * @param $radioName
-	 * @return RadioInterface
+	 * @param $sourceName
+	 * @return SourceInterface
 	 */
-	public function getRadio($radioName)
+	public function getSource($sourceName)
 	{
 		foreach ($this->radios->getValues() as $radio) {
-			/** @var RadioInterface $radio */
-			if ($radio->getName() === $radioName) {
+			/** @var SourceInterface $radio */
+			if ($radio->getName() === $sourceName) {
 				return $radio;
 			}
 		}
@@ -44,9 +44,9 @@ class RadioManager
 
 	/**
 	 *
-	 * @return Radio[]
+	 * @return Source[]
 	 */
-	public function getRadioList()
+	public function getSourceList()
 	{
 		return $this->radios->toArray();
 	}

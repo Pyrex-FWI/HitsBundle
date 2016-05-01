@@ -1,6 +1,6 @@
 <?php
 
-namespace RadioHitsBundle\HitsPage;
+namespace HitsBundle\HitsPage;
 
 
 class HitsPage extends AbstractHitsPage

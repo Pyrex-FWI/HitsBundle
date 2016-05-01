@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <parameters>
+        <parameter key="tracefm.gp.1"><![CDATA[http://gp.trace.fm/-Le-HIT-TRACE-FM-.html]]></parameter>
+        <parameter key="tracefm.gp.2">http://gp.trace.fm/-HIT-TRACE-FM-11-a-20-.html</parameter>
+        <parameter key="tracefm.gp.3">http://gp.trace.fm/-HIT-TRACE-FM-21-a-30-.html</parameter>
+        <parameter key="tracefm.gp.4">http://gp.trace.fm/-HIT-US-.html</parameter>
+        <parameter key="tracefm.gp.5">http://gp.trace.fm/-HIT-US-11-a-20-.html</parameter>
+        <parameter key="tracefm.gp.6">http://gp.trace.fm/-HIT-JAMAICAN-.html</parameter>
+        <parameter key="tracefm.gp.7">http://gp.trace.fm/-HIT-JAMAICAIN-11-a-20-.html</parameter>
+        <parameter key="tracefm.parser">HitsBundle\Extractor\TraceFmExtractor</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="source_trace" class="%hit.source.class%">
+            <factory service="source_factory" method="createSource"></factory>
+            <argument>TraceFmGP</argument>
+            <argument>%tracefm.parser%</argument>
+            <argument type="collection">
+                <argument>%tracefm.gp.1%</argument>
+                <argument>%tracefm.gp.2%</argument>
+                <argument>%tracefm.gp.3%</argument>
+                <argument>%tracefm.gp.4%</argument>
+                <argument>%tracefm.gp.5%</argument>
+                <argument>%tracefm.gp.6%</argument>
+            </argument>
+            <tag name="hit.source"></tag>
+        </service>
+
+    </services>
+</container>

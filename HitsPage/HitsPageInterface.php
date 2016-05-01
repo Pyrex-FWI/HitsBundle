@@ -1,14 +1,14 @@
 <?php
 
-namespace RadioHitsBundle\HitsPage;
+namespace HitsBundle\HitsPage;
 
 
-use RadioHitsBundle\Extractor\Extractor;
+use HitsBundle\Extractor\Extractor;
 
 interface HitsPageInterface
 {
 	/** @return string */
 	public function getUrl();
-	/** @return \RadioHitsBundle\Extractor\ExtractorInterface */
+	/** @return \HitsBundle\Extractor\ParserInterface */
 	public function getExtractor();
 }

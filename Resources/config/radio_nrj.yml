@@ -1,0 +1,13 @@
+parameters:
+    nrjantilles.1: http://nrjantilles.com/-Le-Hit-NRJ-Antilles-.html
+    nrjantilles.parser: HitsBundle\Extractor\NrjAntillesHitsExtractor
+services:
+    source.nrjantilles:
+        class:   %hit.source.class%
+        factory: ['@source_factory', 'createSource']
+        arguments:
+            - 'NrjAntilles'
+            - '%nrjantilles.parser%'
+            - [ '%nrjantilles.1%']
+        tags:
+            - { name: hit.source }

@@ -1,0 +1,16 @@
+services:
+    hits.command.abstract:
+        abstract: true
+        arguments: ['@source_manager', '@event_dispatcher', '@?logger']
+
+    hits.command.status:
+        parent: 'hits.command.abstract'
+        class:   HitsBundle\Command\StatusCommand
+        tags:
+            - { name: console.command }
+
+    hits.command.get:
+        parent: 'hits.command.abstract'
+        class:   HitsBundle\Command\GetCommand
+        tags:
+            - { name: console.command }

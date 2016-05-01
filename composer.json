@@ -1,7 +1,7 @@
 {
   "name": "pyrex-fwi/hitsradio-bundle",
   "description": "Radio hits grabber",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "Christophe Pyree",
@@ -9,7 +9,7 @@
     }
   ],
   "autoload": {
-    "psr-4": { "RadioHitsBundle\\": "" }
+    "psr-4": { "HitsBundle\\": "" }
   },
   "require": {
     "symfony/http-kernel": "~2.7",
@@ -19,6 +19,7 @@
   },
   "require-dev": {
     "symfony/framework-bundle": "~2.7",
+    "symfony/monolog-bundle"  : "~2.4",
     "behat/behat": "~3.0",
     "behat/symfony2-extension": "^2.1",
     "behat/mink": "^1.7",

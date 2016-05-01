@@ -19,8 +19,9 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
 	public function registerBundles()
 	{
 		return [
-				new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-				new \RadioHitsBundle\RadioHitsBundle(),
+			new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+			new Symfony\Bundle\MonologBundle\MonologBundle(),
+			new \HitsBundle\HitsBundle(),
 		];
 	}
 

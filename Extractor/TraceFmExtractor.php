@@ -1,17 +1,17 @@
 <?php
 
-namespace RadioHitsBundle\Extractor;
+namespace HitsBundle\Extractor;
 
-use RadioHitsBundle\Item;
+use HitsBundle\Item;
 use Symfony\Component\DomCrawler\Crawler;
 
-class TraceFmExtractor extends AbstractExtractor
+class TraceFmExtractor extends AbstractParser
 {
 
 	/** @return Item[] */
-	public function extract()
+	public function parse($url)
 	{
-		$data = $this->getContentData($this->url);
+		$data = $this->getContentData($url);
 		$data = str_replace('<br />', ' - ', $data);
 		$data = html_entity_decode($data);
 
@@ -20,8 +20,10 @@ class TraceFmExtractor extends AbstractExtractor
 		$nbItem = $crawler->count();
 
 		for ($i = 0; $i < $nbItem; $i++ ) {
+			$dataUid = $crawler->eq($i)->text();
 			$line = array_map('trim', explode('-', mb_convert_encoding($crawler->eq($i)->text(), 'ISO-8859-1'),2));
-			$results[] = (new Item())->setArtist(ucwords($line[0]))->setTitle(ucwords($line[1]));
+
+			$results[] = (new Item())->setArtist(ucwords($line[0]))->setTitle(ucwords($line[1]))->setUid($dataUid);
 		}
 
 		return $results;

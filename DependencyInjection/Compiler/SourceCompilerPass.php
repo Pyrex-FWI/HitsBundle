@@ -1,14 +1,13 @@
 <?php
 
-namespace RadioHitsBundle\DependencyInjection\Compiler;
+namespace HitsBundle\DependencyInjection\Compiler;
 
 
-use RadioHitsBundle\Radio\RadioManager;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class RadioCompilerPass implements CompilerPassInterface
+class SourceCompilerPass implements CompilerPassInterface
 {
 
 	/**
@@ -20,16 +19,16 @@ class RadioCompilerPass implements CompilerPassInterface
 	 */
 	public function process(ContainerBuilder $container)
 	{
-		if (! $container->hasDefinition('radio_manager'));
+		if (! $container->hasDefinition('source_manager'));
 
 
-		$radioManager = $container->getDefinition('radio_manager');
+		$sourceManager = $container->getDefinition('source_manager');
 
-		$radioServices = $container->findTaggedServiceIds('rhb.radio');
+		$radioServices = $container->findTaggedServiceIds('hit.source');
 
 		foreach ($radioServices as $id => $attr) {
-			$radioManager->addMethodCall(
-				'addRadio',
+			$sourceManager->addMethodCall(
+				'addSource',
 				[ new Reference($id)]
 			);
 		}

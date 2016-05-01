@@ -12,12 +12,12 @@ class FeatureContext implements Context, SnippetAcceptingContext
 {
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
-    /** @var  \RadioHitsBundle\Radio\RadioManager */
+    /** @var  \HitsBundle\Source\SourceManager */
     private $radioManager;
 
-    /** @var  \RadioHitsBundle\Radio\RadioInterface */
+    /** @var  \HitsBundle\Source\SourceInterface */
     private $lastUsedRadio;
-    /** @var  \RadioHitsBundle\Item[] */
+    /** @var  \HitsBundle\Item[] */
     private $lastExtractedItems;
     /**
      * Initializes context.
@@ -36,8 +36,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function getRadioManager()
     {
-        $this->radioManager = $this->getContainer()->get('radio_manager');
-        if (get_class($this->radioManager) !== 'RadioHitsBundle\Radio\RadioManager') {
+        $this->radioManager = $this->getContainer()->get('source_manager');
+        if (get_class($this->radioManager) !== 'HitsBundle\Source\SourceManager') {
             throw new \Exception('This manager class is wrong');
         }
     }
@@ -45,10 +45,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /** @Then /^Radio "([^"]*)" must be available$/ */
     public function getRadio($name)
     {
-        if (! $this->radioManager->getRadio($name)) {
+        if (! $this->radioManager->getSource($name)) {
             throw new \Exception(sprintf('%s not found',$name));
         }
-        $this->lastUsedRadio = $this->radioManager->getRadio($name);
+        $this->lastUsedRadio = $this->radioManager->getSource($name);
     }
     /** @Then /^Fetch hits$/ */
     public function getHitsItems()

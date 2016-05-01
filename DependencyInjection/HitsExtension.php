@@ -1,9 +1,9 @@
 <?php
 
-namespace RadioHitsBundle\DependencyInjection;
+namespace HitsBundle\DependencyInjection;
 
-use RadioHitsBundle\DependencyInjection\Configuration;
-use RadioHitsBundle\RadioHitsBundle;
+use HitsBundle\DependencyInjection\Configuration;
+use HitsBundle\HitsBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class RadioHitsExtension extends Extension
+class HitsExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -25,11 +25,16 @@ class RadioHitsExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('radio_trace.xml');
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('commands.yml');
+        $loader->load('radio_nrj.yml');
+        $loader->load('radio_mfm.yml');
 
     }
 
     public function getAlias()
     {
-        return RadioHitsBundle::BUNDLE_ALIAS;
+        return HitsBundle::BUNDLE_ALIAS;
     }
 }

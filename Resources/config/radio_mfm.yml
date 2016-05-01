@@ -1,0 +1,17 @@
+parameters:
+    mfm.1: 'http://mfmtv.tv/?album_categories=top-radio'
+    mfm.2: 'http://mfmtv.tv/?album_categories=top-radio&paged=2'
+    mfm.3: 'http://mfmtv.tv/?album_categories=top-radio&paged=3'
+    mfm.4: 'http://mfmtv.tv/?album_categories=top-radio&paged=4'
+    mfm.5: 'http://mfmtv.tv/?album_categories=top-radio&paged=5'
+    mfm.parser: 'HitsBundle\Extractor\MfmExtractor'
+services:
+    source.mfm:
+        class:   %hit.source.class%
+        factory: ['@source_factory', 'createSource']
+        arguments:
+            - 'Mfm'
+            - '%mfm.parser%'
+            - [ '%mfm.1%', '%mfm.2%', '%mfm.3%', '%mfm.4%', '%mfm.5%' ]
+        tags:
+            - { name: hit.source }

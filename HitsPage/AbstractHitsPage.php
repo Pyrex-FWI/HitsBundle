@@ -1,20 +1,19 @@
 <?php
 
-namespace RadioHitsBundle\HitsPage;
+namespace HitsBundle\HitsPage;
 
 
-use RadioHitsBundle\Extractor\ExtractorInterface;
+use HitsBundle\Extractor\ParserInterface;
 
 abstract class AbstractHitsPage implements HitsPageInterface
 {
 	private $url;
 	private $extractor;
 
-	public function __construct($url, ExtractorInterface $extractor)
+	public function __construct($url, ParserInterface $extractor)
 	{
 		$this->url = $url;
 		$this->extractor = $extractor;
-		$this->extractor->setUrl($url);
 	}
 
 	/**
@@ -26,7 +25,7 @@ abstract class AbstractHitsPage implements HitsPageInterface
 	}
 
 	/**
-	 * @return ExtractorInterface
+	 * @return ParserInterface
 	 */
 	public function getExtractor()
 	{

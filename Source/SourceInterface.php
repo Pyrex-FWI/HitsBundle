@@ -1,11 +1,11 @@
 <?php
 
-namespace RadioHitsBundle\Radio;
+namespace HitsBundle\Source;
 
 
-use RadioHitsBundle\Item;
+use HitsBundle\Item;
 
-interface RadioInterface
+interface SourceInterface
 {
 	public function getName();
 

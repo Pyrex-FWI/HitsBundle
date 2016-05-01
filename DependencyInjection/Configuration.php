@@ -1,6 +1,6 @@
 <?php
 
-namespace RadioHitsBundle\DependencyInjection;
+namespace HitsBundle\DependencyInjection;
 
 use DeejayPoolBundle\DeejayPoolBundle;
 use Symfony\Component\Config\Definition\ArrayNode;

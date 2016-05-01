@@ -1,11 +1,13 @@
 <?php
 
-namespace RadioHitsBundle\Radio;
+namespace HitsBundle\Source;
 
 
-use RadioHitsBundle\HitsPage\HitsPageInterface;
+use HitsBundle\HitsPage\HitsPageInterface;
+use HitsBundle\Item;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
-abstract class AbstractRadio implements RadioInterface
+abstract class AbstractSource implements SourceInterface
 {
 	private $name;
 	/**
@@ -13,21 +15,24 @@ abstract class AbstractRadio implements RadioInterface
 	 */
 	private $hitsPages;
 
+	/** @var  EventDispatcher */
+	private $eventDispatcher;
 	/**
 	 * @param string $name
 	 * @param HitsPageInterface[] $hitsPages
 	 * @throws \Exception
 	 */
-	public function __construct($name, array $hitsPages = array())
+	public function __construct($eventDispatcher, $name, array $hitsPages = array())
 	{
 		foreach($hitsPages as $page) {
-			if(!in_array('RadioHitsBundle\HitsPage\HitsPageInterface', class_implements($page))){
+			if(!in_array('HitsBundle\HitsPage\HitsPageInterface', class_implements($page))){
 				throw new \Exception('You must provide an array of HitsPageInterface');
 			}
 			$this->hitsPages[] = $page;
 		}
 
 		$this->name = $name;
+		$this->eventDispatcher = $eventDispatcher;
 	}
 
 	public function getName()
@@ -36,7 +41,7 @@ abstract class AbstractRadio implements RadioInterface
 	}
 
 	/**
-	 * @return \RadioHitsBundle\HitsPage\HitsPageInterface[]
+	 * @return \HitsBundle\HitsPage\HitsPageInterface[]
 	 */
 	public function getHitsPages()
 	{
@@ -44,7 +49,7 @@ abstract class AbstractRadio implements RadioInterface
 	}
 
 	/**
-	 * @param \RadioHitsBundle\HitsPage\HitsPageInterface $hitsPage
+	 * @param \HitsBundle\HitsPage\HitsPageInterface $hitsPage
 	 * @return AbstractRadio
 	 */
 	public function addHitsPage(HitsPageInterface $hitsPage)
@@ -61,9 +66,16 @@ abstract class AbstractRadio implements RadioInterface
 		foreach ($this->hitsPages as $hitPage) {
 			$items = array_merge(
 					$items,
-					$hitPage->getExtractor()->extract()
+					$hitPage->getExtractor()->extract($hitPage->getUrl())
 			);
 		}
+
+		$items = array_map(function (Item $item) {
+			$item->setSourceName($this->getName());
+			return $item;
+
+		}, $items);
+
 		return $items;
 	}
 
