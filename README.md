@@ -22,3 +22,14 @@ Events
     cd Tests && bin/behat
 
 ![Pseudoarchi](Resources/docs/diagram.png)
+
+Command Sample
+==============
+
+## Get current Hit list for a specific radio
+
+![Pseudoarchi](Resources/docs/sample_01.png)
+
+## Get status of registered radio page
+
+![Pseudoarchi](Resources/docs/sample_02.png)
