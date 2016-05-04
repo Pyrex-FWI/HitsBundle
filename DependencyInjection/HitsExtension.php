@@ -32,6 +32,7 @@ class HitsExtension extends Extension
         $loader->load('commands.yml');
         $loader->load('radio_nrj.yml');
         $loader->load('radio_mfm.yml');
+        $loader->load('deezer.yml');
 
     }
 

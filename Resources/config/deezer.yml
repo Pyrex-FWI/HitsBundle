@@ -1,0 +1,13 @@
+parameters:
+    deezer.playlist.1109890291: http://api.deezer.com/playlist/1109890291
+    deezer.parser: HitsBundle\Extractor\DeezerPArser
+services:
+    source.deeze.topfrance:
+        class:   %hit.source.class%
+        factory: ['@source_factory', 'createSource']
+        arguments:
+            - 'DeezerTopFrance'
+            - '%deezer.parser%'
+            - [ '%deezer.playlist.1109890291%']
+        tags:
+            - { name: hit.source }
