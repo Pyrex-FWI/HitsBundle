@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <parameters>
+        <parameter key="radio_trace_clip.new.1"><![CDATA[http://gp.trace.fm/-Clips-.html]]></parameter>
+        <parameter key="radio_trace_clip.new.2"><![CDATA[http://gp.trace.fm/-Clips-.html?debut_CLIP=20]]></parameter>
+        <parameter key="radio_trace_clip.new.3"><![CDATA[http://gp.trace.fm/-Clips-.html?debut_CLIP=40]]></parameter>
+        <parameter key="radio_trace_clip.new.4"><![CDATA[http://gp.trace.fm/-Clips-.html?debut_CLIP=60]]></parameter>
+        <parameter key="tracefm.video.new.parser">HitsBundle\Extractor\TraceFmVideoNewExtractor</parameter>
+
+    </parameters>
+
+    <services>
+        <service id="source_trace_clip_new" class="%hit.source.class%">
+            <factory service="source_factory" method="createSource"></factory>
+            <argument>TraceFmGPClipNew</argument>
+            <argument>%tracefm.video.new.parser%</argument>
+            <argument type="collection">
+                <argument>%radio_trace_clip.new.1%</argument>
+                <argument>%radio_trace_clip.new.2%</argument>
+                <argument>%radio_trace_clip.new.3%</argument>
+                <argument>%radio_trace_clip.new.4%</argument>
+            </argument>
+            <tag name="hit.source"></tag>
+        </service>
+
+    </services>
+</container>

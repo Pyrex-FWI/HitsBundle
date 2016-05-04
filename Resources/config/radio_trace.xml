@@ -5,7 +5,7 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <parameters>
-        <parameter key="tracefm.gp.1"><![CDATA[http://gp.trace.fm/-Le-HIT-TRACE-FM-.html]]></parameter>
+        <parameter key="tracefm.gp.1">http://gp.trace.fm/-Le-HIT-TRACE-FM-.html</parameter>
         <parameter key="tracefm.gp.2">http://gp.trace.fm/-HIT-TRACE-FM-11-a-20-.html</parameter>
         <parameter key="tracefm.gp.3">http://gp.trace.fm/-HIT-TRACE-FM-21-a-30-.html</parameter>
         <parameter key="tracefm.gp.4">http://gp.trace.fm/-HIT-US-.html</parameter>
@@ -28,6 +28,7 @@
                 <argument>%tracefm.gp.4%</argument>
                 <argument>%tracefm.gp.5%</argument>
                 <argument>%tracefm.gp.6%</argument>
+                <argument>%tracefm.gp.7%</argument>
             </argument>
             <tag name="hit.source"></tag>
         </service>

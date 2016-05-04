@@ -5,7 +5,9 @@ Feature: Check container
 Scenario Outline: Check if Radio are available and get Try get hits from  HitPages
   When I read all hit pages from "<radio>", i must found "<nbitems>"
   Examples:
-    | radio          | nbitems|
-    | Nrj Antilles   | 25     |
-    | Trace Fm GP    | 70     |
-    | Mfm            | 50     |
+    | radio              | nbitems|
+    | NrjAntilles        | 25     |
+    | TraceFmGP          | 70     |
+    | Mfm                | 50     |
+    | TraceFmGPTopClip   | 20     |
+    | TraceFmGPClipNew   | 80     |

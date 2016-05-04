@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <parameters>
+        <parameter key="radio_trace_clip.1"><![CDATA[http://gp.trace.fm/-Hit-Video-Clip-.html]]></parameter>
+        <parameter key="radio_trace_clip.2"><![CDATA[http://gp.trace.fm/-Clips-.html]]></parameter>
+    </parameters>
+
+    <services>
+        <service id="source_trace_clip" class="%hit.source.class%">
+            <factory service="source_factory" method="createSource"></factory>
+            <argument>TraceFmGPTopClip</argument>
+            <argument>%tracefm.parser%</argument>
+            <argument type="collection">
+                <argument>%radio_trace_clip.1%</argument>
+                <argument>%radio_trace_clip.2%</argument>
+            </argument>
+            <tag name="hit.source"></tag>
+        </service>
+
+    </services>
+</container>

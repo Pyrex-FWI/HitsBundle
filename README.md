@@ -14,8 +14,25 @@ Events
 
 | Name                         |                                                                                  |
 |:---------------------------- |:--------------------------------------------------------------------------------:|
-| ITEMS_POST_EXTRACT              | Where all items are available for en radio   |
+| HitsBundleEvent::ITEMS_POST_EXTRACT              | Where all items are available for a specific radio   |
 
+
+Services
+========
+
+
+
+  Name                                 | Class
+  -----------------------------------  | -------------
+  console.command.hitsbundle_command_getcommand      |alias for "hits.command.get"    
+  console.command.hitsbundle_command_statuscommand   |alias for "hits.command.status" 
+  hits.command.get                                   |HitsBundle\Command\GetCommand   
+  hits.command.status                                |HitsBundle\Command\StatusCommand
+  source.mfm                                         |HitsBundle\Source\Source        
+  source.nrjantilles                                 |HitsBundle\Source\Source        
+  source_manager                                     |HitsBundle\Source\SourceManager 
+  source_trace                                       |HitsBundle\Source\Source        
+  
 
 ##  Run test
 
