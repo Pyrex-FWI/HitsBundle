@@ -2,7 +2,7 @@ parameters:
     deezer.playlist.1109890291: http://api.deezer.com/playlist/1109890291
     deezer.playlist.1071669561: http://api.deezer.com/playlist/1071669561
     deezer.playlist.699296985: http://api.deezer.com/playlist/699296985
-    deezer.parser: HitsBundle\Extractor\DeezerPArser
+    deezer.parser: HitsBundle\Extractor\DeezerParser
 services:
     source.deeze.topfrance:
         class:   %hit.source.class%
