@@ -6,17 +6,15 @@ use HitsBundle\Extractor\ParserInterface;
 use HitsBundle\Item;
 use Symfony\Component\EventDispatcher\Event;
 
-class SourceEvent extends Event
+class SourceItemCollectionEvent extends AbstractEvent
 {
     /** @var Item[]  */
     protected $items;
-    /** @var  ParserInterface */
-    protected $parser;
 
     public function __construct(ParserInterface $parser, array $items)
     {
         $this->items = $items;
-        $this->parser = $parser;
+        parent::__construct($parser);
     }
 
     /**
@@ -26,5 +24,4 @@ class SourceEvent extends Event
     {
         return $this->items;
     }
-
 }

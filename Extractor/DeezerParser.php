@@ -15,8 +15,9 @@ class DeezerParser extends AbstractParser
 		$items = [];
 		foreach ($data['tracks']['data'] as $track) {
 			$dataUid = crc32(json_encode($track));
-			$item = (new Item())->setArtist(ucwords($track['title']))->setTitle(ucwords($track['artist']['name']))->setUid($dataUid);
-			$items[] = $item;
+			$item = (new Item())->setTitle(ucwords($track['title']))->setArtist(ucwords($track['artist']['name']))->setUid($dataUid);
+			$this->dispatchItem($item);
+            $items[] = $item;
 		}
 
 		return $items;

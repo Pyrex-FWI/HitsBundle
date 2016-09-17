@@ -23,11 +23,13 @@ class MfmExtractor extends AbstractParser
 			preg_match('/^\d{2}\s+.\s+(?<artist>[\w\s\-\’]*\w)([»«\s\–]*)?(?<title>[\w\s\-\’]*\w)([»«\s\–]*)$/u', $line, $match);
 			$parts = array_map('trim', $match);
 			if (isset($parts['artist']) && isset($parts['title'])) {
-				$results[] = (new Item())->setArtist(ucwords($parts['artist']))->setTitle(ucwords($parts['title']))->setUid($dataUid);
+				$item = (new Item())->setArtist(ucwords($parts['artist']))->setTitle(ucwords($parts['title']))->setUid($dataUid);
 			} else {
-				$results[] = (new Item())->setLongTitle($line)->setProperlyDecoded(false)->setUid($dataUid);
+				$item = (new Item())->setLongTitle($line)->setProperlyDecoded(false)->setUid($dataUid);
 			}
-		}
+			$results[] = $item;
+            $this->dispatchItem($item);
+        }
 		return $results;
 	}
 }

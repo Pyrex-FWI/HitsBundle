@@ -5,7 +5,9 @@ namespace HitsBundle\Extractor;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use HitsBundle\Event\HitsBundleEvent;
-use HitsBundle\Event\SourceEvent;
+use HitsBundle\Event\SourceItemCollectionEvent;
+use HitsBundle\Event\SourceItemEvent;
+use HitsBundle\Item;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -19,6 +21,11 @@ abstract class AbstractParser implements ParserInterface
 	/** @var  LoggerInterface */
 	private $logger;
 
+    /**
+     * AbstractParser constructor.
+     * @param $eventDispatcher
+     * @param $logger
+     */
 	public function __construct($eventDispatcher, $logger)
 	{
 		$this->client = new Client(
@@ -37,24 +44,39 @@ abstract class AbstractParser implements ParserInterface
 	}
 
 
-	/**
-	 * @return string
-	 */
+    /**
+     * @param $url
+     * @throws \Exception
+     * @return string
+     */
 	public function getContentData($url)
 	{
-
-		return $this->client->get($url)->getBody()->__toString();
+        try {
+            return $this->client->get($url)->getBody()->__toString();
+        } catch (\Exception $e) {
+            new \Exception(sprintf('Error %s, for: %s', $e->getMessage(), $url));
+        }
 	}
 
+    /**
+     * @param $url
+     * @return mixed
+     */
 	public function extract($url)
 	{
 		$result = $this->parse($url);
 		$this->logger->info(sprintf('Grab url: %s', $url), [count($result)]);
-		$sourceEvent = new SourceEvent($this, $result);
-		$this->eventDispatcher->dispatch(HitsBundleEvent::ITEMS_POST_EXTRACT, $sourceEvent);
+		$sourceEvent = new SourceItemCollectionEvent($this, $result);
+		$this->eventDispatcher->dispatch(HitsBundleEvent::SOURCE_ITEM_COLLECTION, $sourceEvent);
 
 		return $result;
 	}
+
+	protected function dispatchItem(Item $item)
+    {
+        $sourceEvent = new SourceItemEvent($this, $item);
+        $this->eventDispatcher->dispatch(HitsBundleEvent::SOURCE_ITEM, $sourceEvent);
+    }
 
 	abstract public function parse($url);
 

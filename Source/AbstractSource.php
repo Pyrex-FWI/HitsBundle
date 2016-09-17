@@ -64,10 +64,12 @@ abstract class AbstractSource implements SourceInterface
 	{
 		$items = [];
 		foreach ($this->hitsPages as $hitPage) {
-			$items = array_merge(
-					$items,
-					$hitPage->getExtractor()->extract($hitPage->getUrl())
-			);
+		    try {
+                $items = array_merge(
+                    $items,
+                    $hitPage->getExtractor()->extract($hitPage->getUrl())
+                );
+            } finally {}
 		}
 
 		$items = array_map(function (Item $item) {

@@ -7,7 +7,7 @@ parameters:
     mfm.parser: 'HitsBundle\Extractor\MfmExtractor'
 services:
     source.mfm:
-        class:   %hit.source.class%
+        class:   "%hit.source.class%"
         factory: ['@source_factory', 'createSource']
         arguments:
             - 'Mfm'
