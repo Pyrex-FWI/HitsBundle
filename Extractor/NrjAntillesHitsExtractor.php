@@ -46,7 +46,9 @@ class NrjAntillesHitsExtractor extends AbstractParser
 				$item = (new Item())->setArtist(ucwords($artist))->setTitle(ucwords($title))->setUid($dataUid);
 				$items[] = $item;
 			}
-		}
+            $this->dispatchItem($item);
+
+        }
 
 		return $items;
 	}

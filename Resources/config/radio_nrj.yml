@@ -3,7 +3,7 @@ parameters:
     nrjantilles.parser: HitsBundle\Extractor\NrjAntillesHitsExtractor
 services:
     source.nrjantilles:
-        class:   %hit.source.class%
+        class:   "%hit.source.class%"
         factory: ['@source_factory', 'createSource']
         arguments:
             - 'NrjAntilles'

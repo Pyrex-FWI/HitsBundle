@@ -5,7 +5,7 @@ parameters:
     deezer.parser: HitsBundle\Extractor\DeezerParser
 services:
     source.deeze.topfrance:
-        class:   %hit.source.class%
+        class:   "%hit.source.class%"
         factory: ['@source_factory', 'createSource']
         arguments:
             - 'DeezerTopFrance'

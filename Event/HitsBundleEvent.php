@@ -3,7 +3,8 @@
 namespace HitsBundle\Event;
 
 
-class HitsBundleEvent
+final class HitsBundleEvent
 {
-    const ITEMS_POST_EXTRACT = 'source.event.post.fetch';
+    const SOURCE_ITEM_COLLECTION = 'source.item.collection';
+    const SOURCE_ITEM            = 'source.item';
 }

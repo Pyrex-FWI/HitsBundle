@@ -3,7 +3,7 @@
 namespace HitsBundle\Command;
 
 use HitsBundle\Event\HitsBundleEvent;
-use HitsBundle\Event\SourceEvent;
+use HitsBundle\Event\SourceItemCollectionEvent;
 use HitsBundle\Item;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -98,6 +98,4 @@ EOF
 
         $this->output->writeln(sprintf('%s hits', count($items)));
     }
-
-
 }

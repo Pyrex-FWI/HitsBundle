@@ -2,6 +2,7 @@
   "name": "pyrex-fwi/hits-bundle",
   "description": "Radio hits grabber",
   "license": "MIT",
+  "version": "dev-master",
   "authors": [
     {
       "name": "Christophe Pyree",
