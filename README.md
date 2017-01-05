@@ -1,3 +1,5 @@
+[![build status](http://gitlab.cpyree.com/Pyrex-Fwi/HitsBundle/badges/master/build.svg)](http://gitlab.cpyree.com/Pyrex-Fwi/HitsBundle/commits/master)
+
 HitsBundle
 ===============
 
