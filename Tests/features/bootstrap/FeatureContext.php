@@ -8,7 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext implements Context, SnippetAcceptingContext
+class FeatureContext implements Context
 {
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
@@ -19,6 +19,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     private $lastUsedRadio;
     /** @var  \HitsBundle\Item[] */
     private $lastExtractedItems;
+
     /**
      * Initializes context.
      *

@@ -36,7 +36,10 @@ Services
 
 ##  Run test
 
-    cd Tests && bin/behat
+```sh
+Tests/bin/behat Tests/  --config Tests/behat.yml 
+cd Tests && bin/behat
+```
 
 ![Pseudoarchi](Resources/docs/diagram.png)
 
