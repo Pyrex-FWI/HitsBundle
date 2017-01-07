@@ -1,6 +1,6 @@
 framework:
     secret: "Three can keep a secret, if two of them are dead."
-    validation:      { enable_annotations: true }
+    #validation:      { enable_annotations: true }
 
 monolog:
     handlers:
